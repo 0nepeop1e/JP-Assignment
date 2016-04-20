@@ -1,4 +1,4 @@
-package com.shopmart.pops.scene;
+package com.shopmart.pops.manager.scene;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;

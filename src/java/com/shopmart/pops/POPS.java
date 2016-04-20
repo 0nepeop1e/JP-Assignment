@@ -1,13 +1,12 @@
 package com.shopmart.pops;
 
-import com.shopmart.pops.scene.SceneManager;
+import com.shopmart.pops.manager.scene.SceneManager;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import lombok.Getter;
-import lombok.NonNull;
 
 public class POPS extends Application {
 
