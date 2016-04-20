@@ -8,6 +8,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * I think the class name is already descriptive enough.
+ */
 public class LoginScene extends Scene {
 
     private CredentialForm credential;
@@ -43,6 +46,7 @@ public class LoginScene extends Scene {
         String username = credential.getUsername();
         String password = credential.getPassword();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initOwner(POPS.getSceneManager().getStage());
         alert.setTitle("Login");
         alert.setHeaderText("Here is your credential");
         alert.setContentText(String.format("Username: %s\nPassword: %s", username, password));

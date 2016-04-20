@@ -6,6 +6,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import lombok.Getter;
 
+/**
+ * Just a custom control for user to input
+ * their credential, lol.
+ */
 public class CredentialForm extends GridPane {
 
     @Getter private TextField usernameField;
@@ -25,18 +29,34 @@ public class CredentialForm extends GridPane {
         this.add(passwordField, 1, 1);
     }
 
+    /**
+     * Easy access to the text of username field.
+     * @return the username
+     */
     public String getUsername(){
         return this.usernameField.getText();
     }
 
+    /**
+     * Easy access to the text of username field.
+     * @param username the username
+     */
     public void setUsername(String username){
         this.usernameField.setText(username);
     }
 
+    /**
+     * Easy access to the text of password field.
+     * @return the password
+     */
     public String getPassword(){
         return this.passwordField.getText();
     }
 
+    /**
+     * Easy access to the text of password field.
+     * @param password the password
+     */
     public void setPassword(String password){
         this.passwordField.setText(password);
     }
