@@ -4,6 +4,7 @@ import com.shopmart.pops.components.controls.CredentialForm;
 import com.shopmart.pops.manager.resource.ResourceManager;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
 
@@ -14,6 +15,10 @@ public class CredentialDialog extends Alert {
 
     private CredentialForm credential;
 
+    /**
+     * A credential dialog with a pre-set username.
+     * @param username
+     */
     public CredentialDialog(String username){
         super(AlertType.NONE);
         credential = new CredentialForm();
@@ -21,6 +26,9 @@ public class CredentialDialog extends Alert {
         this.getDialogPane().setContent(credential);
         this.getButtonTypes().clear();
         this.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        Button ok = (Button) this.getDialogPane().lookupButton(ButtonType.OK);
+        ok.setText("Submit");
+        ok.setOnAction(e->login());
         ImageView icon = new ImageView(ResourceManager.getImage("img/login.png"));
         icon.setViewport(new Rectangle2D(0,0,64,64));
         this.setGraphic(icon);
@@ -28,6 +36,13 @@ public class CredentialDialog extends Alert {
         this.setHeaderText("The system need your credential.");
     }
 
+    private void login() {
+
+    }
+
+    /**
+     * Just a credential dialog.
+     */
     public CredentialDialog(){
         this("");
     }

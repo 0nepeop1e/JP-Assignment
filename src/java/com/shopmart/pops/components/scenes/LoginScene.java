@@ -16,6 +16,10 @@ public class LoginScene extends Scene {
 
     private CredentialForm credential;
 
+    /**
+     * Just a constructor, I don't think any
+     * explanation required for this, lol.
+     */
     public LoginScene(){
         super(new HBox());
         HBox root = (HBox) this.getRoot();
