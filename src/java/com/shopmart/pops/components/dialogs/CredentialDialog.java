@@ -17,7 +17,7 @@ public class CredentialDialog extends Alert {
 
     /**
      * A credential dialog with a pre-set username.
-     * @param username
+     * @param username the username
      */
     public CredentialDialog(String username){
         super(AlertType.NONE);

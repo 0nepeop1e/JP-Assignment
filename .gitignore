@@ -2,3 +2,4 @@ build/
 .idea/*
 !.idea/*.iml
 !.idea/artifacts/
+!.idea/modules.xml
