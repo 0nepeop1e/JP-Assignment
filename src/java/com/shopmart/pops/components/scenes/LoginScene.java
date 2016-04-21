@@ -2,6 +2,7 @@ package com.shopmart.pops.components.scenes;
 
 import com.shopmart.pops.POPS;
 import com.shopmart.pops.components.controls.CredentialForm;
+import com.shopmart.pops.components.dialogs.CredentialDialog;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -45,11 +46,8 @@ public class LoginScene extends Scene {
     private void login(){
         String username = credential.getUsername();
         String password = credential.getPassword();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.initOwner(POPS.getSceneManager().getStage());
-        alert.setTitle("Login");
-        alert.setHeaderText("Here is your credential");
-        alert.setContentText(String.format("Username: %s\nPassword: %s", username, password));
-        alert.showAndWait();
+        CredentialDialog cd = new CredentialDialog("");
+        cd.initOwner(POPS.getSceneManager().getStage());
+        cd.showAndWait();
     }
 }
