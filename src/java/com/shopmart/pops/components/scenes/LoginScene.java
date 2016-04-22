@@ -43,7 +43,7 @@ public class LoginScene extends Scene {
         credential = new CredentialForm();
         HBox box = new HBox();
         box.setSpacing(4);
-        box.getChildren().addAll(btn_exit, btn_login);
+        box.getChildren().addAll(btn_login, btn_exit);
         box.setAlignment(Pos.CENTER_RIGHT);
         pane.getChildren().addAll(txt1, credential, box);
     }
