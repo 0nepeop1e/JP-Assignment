@@ -1,4 +1,4 @@
-package com.shopmart.pops.dao.annotations;
+package com.shopmart.pops.database.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,11 +6,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Field with this annotation will auto assigned
- * with the value of a field in database.
+ * An annotation to annotate method of DataManager
+ * to auto query.
  */
-@Target(ElementType.FIELD)
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface AssignWithField {
+public @interface AutoQuery {
     String value() default "";
 }

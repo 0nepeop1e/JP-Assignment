@@ -1,15 +1,15 @@
-package com.shopmart.pops.dao;
+package com.shopmart.pops.manager.dao;
 
-import com.shopmart.pops.dao.annotations.EntityFromTable;
-import com.shopmart.pops.dao.annotations.AssignWithField;
-import com.shopmart.pops.dao.db.Entry;
+import com.shopmart.pops.database.annotations.TableEntry;
+import com.shopmart.pops.database.annotations.AssignWithField;
+import com.shopmart.pops.database.entities.Entry;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  * A class which represent entries in users table.
  */
-@EntityFromTable("users")
+@TableEntry("users")
 public class User extends Entry {
     @Getter @AssignWithField
     private int id;
