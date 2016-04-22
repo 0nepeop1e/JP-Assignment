@@ -36,7 +36,7 @@ public class EasySQLite {
         this.path = dbFile;
     }
 
-    Connection getConnection(){
+    private Connection getConnection(){
         try {
             return DriverManager.getConnection(String.format("jdbc:sqlite:%s",this.path));
         } catch (SQLException e) {
