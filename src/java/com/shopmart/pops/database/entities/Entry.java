@@ -1,6 +1,10 @@
 package com.shopmart.pops.database.entities;
 
+import com.shopmart.pops.database.annotations.AssignWithField;
+
+import java.lang.reflect.Field;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * Entry of an entity.
@@ -24,6 +28,17 @@ public abstract class Entry {
      * @param set the set
      */
     protected void inject(ResultSet set){
-
+        for(Field f : this.getClass().getFields()){
+            AssignWithField a;
+            if((a = f.getAnnotation(AssignWithField.class)) != null)
+                try {
+                    f.setAccessible(true);
+                    f.set(this, a.value().isEmpty() ?
+                            set.getObject(f.getName()):
+                            set.getObject(a.value()));
+                } catch (IllegalAccessException | SQLException e) {
+                    e.printStackTrace();
+                }
+        }
     }
 }

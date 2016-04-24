@@ -5,18 +5,21 @@ import com.shopmart.pops.database.annotations.FullManualQuery;
 import com.shopmart.pops.database.annotations.SemiManualQuery;
 import com.shopmart.pops.database.annotations.TableEntry;
 import com.shopmart.pops.database.entities.Entry;
+import com.shopmart.pops.database.manager.ColumnManager;
 import com.shopmart.pops.database.manager.DataManager;
 import com.shopmart.pops.database.manager.TableManager;
+import javassist.scopedpool.SoftValueHashMap;
 import javassist.util.proxy.Proxy;
 import javassist.util.proxy.ProxyFactory;
 import lombok.Getter;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A class for easy to manage sqlite database.
@@ -26,8 +29,13 @@ public class EasySQLite {
     private String path;
     @Getter
     private TableManager tableManager;
+    @Getter
+    private ColumnManager columnManager;
+    private Map<Class<?>, DataManager<?>> managers;
     public EasySQLite(String dbFile){
+        managers = new HashMap<>();
         tableManager = getManager(TableManager.class);
+        columnManager = getManager(ColumnManager.class);
         try {
             Class.forName("org.sqlite.JDBC");
         } catch (ClassNotFoundException e) {
@@ -36,7 +44,7 @@ public class EasySQLite {
         this.path = dbFile;
     }
 
-    private Connection getConnection(){
+    public Connection getConnection(){
         try {
             return DriverManager.getConnection(String.format("jdbc:sqlite:%s",this.path));
         } catch (SQLException e) {
@@ -46,10 +54,11 @@ public class EasySQLite {
     }
 
     public <T extends DataManager> T getManager(Class<T> managerClass){
+        if(managers.containsKey(managerClass)) return (T) managers.get(managerClass);
         ProxyFactory factory = new ProxyFactory();
         Class<? extends Entry> enClass =
                 (Class<? extends Entry>) ((ParameterizedType)managerClass
-                        .getGenericSuperclass())
+                        .getGenericInterfaces()[0])
                         .getActualTypeArguments()[0];
         factory.setSuperclass(managerClass);
         factory.setFilter((m)-> m.getAnnotation(AutoQuery.class) != null ||
@@ -61,8 +70,7 @@ public class EasySQLite {
             p = (Proxy) factory.create(new Class[0], new Object[0]);
             p.setHandler((self, m, proceed, args)->{
                 if(m.getName().equals("getInjectedEntry")){
-                    Method inject = enClass.getMethod("inject", ResultSet.class);
-                    return inject.invoke(enClass.newInstance(), args[0]);
+                    getInjectedEntry(enClass, (ResultSet) args[0]);
                 }
                 switch(m.getName()){
                     case "insert":
@@ -75,23 +83,40 @@ public class EasySQLite {
                         delete((Entry) args[0]);
                         return null;
                     case "count":
-                        if(args.length > 0 )
-                            return count(getTableName(enClass), (Criteria) args[0]);
-                        else return count(getTableName(enClass));
+                        return count(getTableName(enClass));
+                    case "getAll":
+                        return getList(enClass);
+                    case "getDatabase":
+                        return EasySQLite.this;
                 }
                 return null;
             });
         } catch (Exception e){
             e.printStackTrace();
         }
+        managers.put(managerClass, (DataManager<?>) p);
         return (T) p;
     }
 
-    private int count(String tableName) {
-        return 0;
+    private <T extends Entry> T getInjectedEntry(Class<? extends Entry> enClass, ResultSet rs) throws Exception {
+        Method inject = enClass.getMethod("inject", ResultSet.class);
+        inject.setAccessible(true);
+        return (T)inject.invoke(enClass.newInstance(), rs);
     }
 
-    private int count(String tableName, Criteria arg) {
+    private Collection<? extends Entry> getList(Class<? extends Entry> enClass) throws Exception {
+        ArrayList<? extends Entry> list = new ArrayList<>();
+        String sql = String.format("SELECT * FROM `%s`", getTableName(enClass));
+        Connection conn = getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+            list.add(getInjectedEntry(enClass, rs));
+        }
+        return list;
+    }
+
+    private int count(String tableName) {
         return 0;
     }
 

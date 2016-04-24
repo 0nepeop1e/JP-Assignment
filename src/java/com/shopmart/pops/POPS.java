@@ -14,7 +14,6 @@ public class POPS extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         EasySQLite sql = new EasySQLite("");
-        System.out.println(sql.getTableManager().count());
         stage.setMaximized(true);
         stage.setResizable(false);
         stage.setTitle("Shopmart Sdn. Bhd.");
