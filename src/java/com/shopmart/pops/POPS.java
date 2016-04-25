@@ -1,6 +1,8 @@
 package com.shopmart.pops;
 
-import com.shopmart.pops.database.EasySQLite;
+import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonWriter;
+import com.shopmart.pops.manager.data.objects.User;
 import com.shopmart.pops.manager.scene.SceneManager;
 import com.shopmart.pops.components.scenes.LoginScene;
 import javafx.application.Application;
@@ -13,7 +15,6 @@ public class POPS extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        EasySQLite sql = new EasySQLite("");
         stage.setMaximized(true);
         stage.setResizable(false);
         stage.setTitle("Shopmart Sdn. Bhd.");
