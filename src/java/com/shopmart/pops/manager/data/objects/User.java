@@ -1,6 +1,9 @@
 package com.shopmart.pops.manager.data.objects;
 
-import com.google.gson.*;
+import com.google.gson.JsonObject;
+import com.shopmart.pops.manager.data.abstracts.AbstractEntry;
+import com.shopmart.pops.manager.data.annotations.Serialize;
+import com.shopmart.pops.manager.data.enums.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import java.security.MessageDigest;
@@ -11,21 +14,26 @@ import java.util.zip.CRC32;
 /**
  * A class which represent entries in users table.
  */
-public class User {
-    @Getter
-    private int id;
-    @Getter
-    private String username;
-    @Getter
-    private String authKey;
-    @Getter @Setter
-    private String staffId;
-    @Getter @Setter
-    private String staffName;
-    @Getter @Setter
-    private int groupId;
+public class User extends AbstractEntry {
+    @Getter @Serialize
+    protected String username = "";
+    @Getter @Serialize
+    private String authKey = "";
+    @Getter @Setter @Serialize
+    private String staffId = "";
+    @Getter @Setter @Serialize
+    private String staffName = "";
+    @Serialize
+    private int access = AccessLevel.NoAccess.ordinal();
 
-    public void changePassword(String password){
+    public boolean setUsername(String username, String password){
+        if(!checkPassword(password)) return false;
+        this.username = username;
+        this.setPassword(password);
+        return true;
+    }
+
+    public void setPassword(String password){
         this.authKey = calAuthKey(password);
     }
 
@@ -33,15 +41,12 @@ public class User {
         return this.authKey.equals(calAuthKey(password));
     }
 
-    public JsonObject toJson() {
-        JsonObject jo = new JsonObject();
-        jo.addProperty("id", this.id);
-        jo.addProperty("user", this.username);
-        jo.addProperty("auth", this.authKey);
-        jo.addProperty("staff", this.staffId);
-        jo.addProperty("name", this.staffName);
-        jo.addProperty("group", this.groupId);
-        return jo;
+    public AccessLevel getAccessLevel(){
+        return AccessLevel.fromValue(this.access);
+    }
+
+    public void setAccessLevel(AccessLevel access){
+        this.access = access.ordinal();
     }
 
     private String calAuthKey(String password){
@@ -50,22 +55,18 @@ public class User {
             MessageDigest md = MessageDigest.getInstance("MD5");
             CRC32 crc32 = new CRC32();
             crc32.update(this.username.getBytes());
-            Random rand = new Random(crc32.getValue() ^ this.id);
+            Random rand = new Random(crc32.getValue() ^ this.getId());
             byte[] bytes = md.digest(password.getBytes());
             for(byte b:bytes) result +=
-                    String.format("%02x", b ^ (rand.nextInt() % 256));
+                    String.format("%02x", (b ^ rand.nextInt()) & 0xFF);
         } catch (NoSuchAlgorithmException e) {e.printStackTrace();}
         return result;
     }
 
-    public static User fromJson(JsonObject jo){
-        User u = new User();
-        u.id = jo.get("id").getAsInt();
-        u.username = jo.get("user").getAsString();
-        u.authKey = jo.get("auth").getAsString();
-        u.staffId = jo.get("staff").getAsString();
-        u.staffName = jo.get("name").getAsString();
-        u.groupId = jo.get("group").getAsInt();
-        return u;
+    @Override
+    public User loadJson(JsonObject json){
+        if(json.get("id").getAsInt() == 1)
+            return new SuperUser().loadJson(json);
+        return super.loadJson(json);
     }
 }

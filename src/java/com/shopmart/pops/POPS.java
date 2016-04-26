@@ -1,8 +1,6 @@
 package com.shopmart.pops;
 
-import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonWriter;
-import com.shopmart.pops.manager.data.objects.User;
+import com.shopmart.pops.manager.data.DataManager;
 import com.shopmart.pops.manager.scene.SceneManager;
 import com.shopmart.pops.components.scenes.LoginScene;
 import javafx.application.Application;
@@ -12,9 +10,11 @@ import lombok.Getter;
 public class POPS extends Application {
 
     @Getter private static SceneManager sceneManager;
+    @Getter private static DataManager dataManager;
 
     @Override
     public void start(Stage stage) throws Exception {
+        dataManager = new DataManager();
         stage.setMaximized(true);
         stage.setResizable(false);
         stage.setTitle("Shopmart Sdn. Bhd.");

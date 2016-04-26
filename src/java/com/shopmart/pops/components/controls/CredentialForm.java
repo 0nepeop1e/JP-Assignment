@@ -30,7 +30,7 @@ public class CredentialForm extends GridPane {
     }
 
     /**
-     * Easy access to the text of username field.
+     * Easy accessLevel to the text of username field.
      * @return the username
      */
     public String getUsername(){
@@ -38,7 +38,7 @@ public class CredentialForm extends GridPane {
     }
 
     /**
-     * Easy access to the text of username field.
+     * Easy accessLevel to the text of username field.
      * @param username the username
      */
     public void setUsername(String username){
@@ -46,7 +46,7 @@ public class CredentialForm extends GridPane {
     }
 
     /**
-     * Easy access to the text of password field.
+     * Easy accessLevel to the text of password field.
      * @return the password
      */
     public String getPassword(){
@@ -54,7 +54,7 @@ public class CredentialForm extends GridPane {
     }
 
     /**
-     * Easy access to the text of password field.
+     * Easy accessLevel to the text of password field.
      * @param password the password
      */
     public void setPassword(String password){
