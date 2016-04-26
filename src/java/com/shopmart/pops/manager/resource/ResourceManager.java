@@ -44,7 +44,7 @@ public class ResourceManager {
      */
     public static Image getImage(String path){
         URL url = getURL(path);
-        return new Image(url.toExternalForm(), 64, 64, true, true);
+        return new Image(url.toExternalForm());
     }
 
     /**

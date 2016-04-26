@@ -3,11 +3,16 @@ package com.shopmart.pops.components.scenes;
 import com.shopmart.pops.POPS;
 import com.shopmart.pops.components.controls.CredentialForm;
 import com.shopmart.pops.components.dialogs.CredentialDialog;
+import com.shopmart.pops.manager.scene.SceneManager;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+
+import java.util.regex.Pattern;
 
 /**
  * I think the class name is already descriptive enough.
@@ -48,10 +53,37 @@ public class LoginScene extends Scene {
         pane.getChildren().addAll(txt1, credential, box);
     }
     private void login(){
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setTitle("Login");
+        a.initOwner(POPS.getSceneManager().getStage());
         String username = credential.getUsername();
         String password = credential.getPassword();
-        CredentialDialog cd = new CredentialDialog("");
-        cd.initOwner(POPS.getSceneManager().getStage());
-        cd.showAndWait();
+        if(Pattern.matches("^\\s*$", username)){
+            a.setHeaderText("Invalid Username!");
+            a.setContentText("Please enter a valid username.");
+            a.showAndWait();
+            credential.setUsername("");
+            credential.setPassword("");
+            credential.getUsernameField().requestFocus();
+            return;
+        }
+        if(Pattern.matches("^\\s*$", password)){
+            a.setHeaderText("Invalid Password!");
+            a.setContentText("Please enter a valid password.");
+            a.showAndWait();
+            credential.setPassword("");
+            credential.getPasswordField().requestFocus();
+            return;
+        }
+        if(POPS.getDataManager().getUserManager().login(username, password)) {
+            POPS.getSceneManager().nextScene(new MenuScene());
+            credential.setUsername("");
+            credential.setPassword("");
+            return;
+        }
+        a.setHeaderText("Failed to Login!");
+        a.setContentText("Incorrect username or password.");
+        a.showAndWait();
+        credential.setPassword("");
     }
 }

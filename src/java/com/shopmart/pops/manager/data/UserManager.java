@@ -80,6 +80,13 @@ public class UserManager extends AbstractManager<User>{
                 .collect(Collectors.toList());
     }
 
+    public Collection<User> findByAccessLevel(String glob){
+        return data.stream().filter(usr->
+                Pattern.matches(POPSUtils.globToRegEx(glob),
+                usr.getAccessLevel().toString()) && usr.getId() != 1)
+                .collect(Collectors.toList());
+    }
+
     public Collection<User> findByAccessLevel(AccessLevel access){
         return data.stream().filter(usr->
                 usr.getAccessLevel() == access &&

@@ -20,7 +20,7 @@ public enum AccessLevel {
         return oa.isPresent() ? oa.get() : NoAccess;
     }
 
-    public boolean hasPermission(AccessLevel other){
+    public boolean enoughFor(AccessLevel other){
         return this.ordinal() <= other.ordinal();
     }
 

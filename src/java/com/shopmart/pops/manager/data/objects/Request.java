@@ -13,21 +13,24 @@ import lombok.Setter;
 
 import java.lang.reflect.Type;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Request extends AbstractEntry {
-    private static final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+    private static final DateTimeFormatter format = DateTimeFormatter.ofPattern("YYYYMMddHHmmssSSS");
     @Getter @Setter
-    private LocalDate time;
+    private LocalDateTime time = LocalDateTime.now();
     @Getter
-    private Map<Integer, Integer> itemsAmount;
+    private Map<Integer, Integer> itemsAmount = new HashMap<>();
     @Setter @Serialize
-    private int creator;
+    private int creator = 0;
     @Serialize
-    private int status;
+    private int status = 0;
     @Setter @Serialize
-    private int modifier;
+    private int modifier = 0;
 
     public User getCreator(){
         return this.dataManager.getUserManager()
@@ -60,7 +63,7 @@ public class Request extends AbstractEntry {
     @Override
     public Request loadJson(JsonObject json){
         super.loadJson(json);
-        this.time = LocalDate.parse(json.get("data").getAsString(), format);
+        this.time = LocalDateTime.parse(json.get("data").getAsString(), format);
         Gson gson = new GsonBuilder().create();
         Type token = new TypeToken<Map<Integer, Integer>>(){}.getType();
         this.itemsAmount = gson.fromJson(json.get("items") ,token);

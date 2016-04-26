@@ -18,13 +18,13 @@ public class User extends AbstractEntry {
     @Getter @Serialize
     protected String username = "";
     @Getter @Serialize
-    private String authKey = "";
+    protected String authKey = "";
     @Getter @Setter @Serialize
-    private String staffId = "";
+    protected String staffId = "";
     @Getter @Setter @Serialize
-    private String staffName = "";
+    protected String staffName = "";
     @Serialize
-    private int access = AccessLevel.NoAccess.ordinal();
+    protected int access = AccessLevel.NoAccess.ordinal();
 
     public boolean setUsername(String username, String password){
         if(!checkPassword(password)) return false;

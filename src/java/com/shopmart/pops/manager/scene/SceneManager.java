@@ -1,6 +1,9 @@
 package com.shopmart.pops.manager.scene;
 
 import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import lombok.*;
 
@@ -15,6 +18,9 @@ public class SceneManager {
     @Getter private Scene currentScene;
     @Getter private Stage stage;
 
+    private double hBorder;
+    private double vBorder;
+
     /**
      * Setup a scene manager for a stage.
      * @param stage the stage
@@ -22,9 +28,10 @@ public class SceneManager {
      */
     public SceneManager(@NonNull Stage stage,
                         @NonNull Scene firstScene){
-        this.stage = stage;
         this.scenes = new Stack<>();
+        this.stage = stage;
         this.changeScene(firstScene);
+        this.stage.show();
     }
 
     /**
@@ -42,7 +49,9 @@ public class SceneManager {
      */
     public void changeScene(@NonNull Scene nextScene){
         this.currentScene = nextScene;
+        this.stage.hide();
         this.stage.setScene(nextScene);
+        this.stage.show();
     }
 
     /**

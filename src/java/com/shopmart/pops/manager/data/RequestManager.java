@@ -5,6 +5,8 @@ import com.shopmart.pops.manager.data.enums.RequestStatus;
 import com.shopmart.pops.manager.data.objects.Request;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -13,19 +15,19 @@ import java.util.stream.Collectors;
  */
 public class RequestManager extends AbstractManager<Request> {
 
-    public Collection<Request> getAllAfter(LocalDate time){
+    public Collection<Request> getAllAfter(LocalDateTime time){
         return this.data.stream().filter(r->
                 r.getTime().compareTo(time) >= 0)
                 .collect(Collectors.toList());
     }
 
-    public Collection<Request> getAllBefore(LocalDate time){
+    public Collection<Request> getAllBefore(LocalDateTime time){
         return this.data.stream().filter(r->
                 r.getTime().compareTo(time) < 0)
                 .collect(Collectors.toList());
     }
 
-    public Collection<Request> getAllBetween(LocalDate lower, LocalDate upper){
+    public Collection<Request> getAllBetween(LocalDateTime lower, LocalDateTime upper){
         return this.data.stream().filter(r->
                 r.getTime().compareTo(lower) >= 0 &&
                 r.getTime().compareTo(upper) <= 0)
