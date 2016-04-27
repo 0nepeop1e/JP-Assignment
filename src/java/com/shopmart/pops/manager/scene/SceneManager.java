@@ -18,9 +18,6 @@ public class SceneManager {
     @Getter private Scene currentScene;
     @Getter private Stage stage;
 
-    private double hBorder;
-    private double vBorder;
-
     /**
      * Setup a scene manager for a stage.
      * @param stage the stage
