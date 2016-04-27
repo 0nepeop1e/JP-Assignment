@@ -4,6 +4,7 @@ import com.shopmart.pops.manager.data.abstracts.AbstractBuilder;
 import com.shopmart.pops.manager.data.abstracts.AbstractManager;
 import com.shopmart.pops.manager.data.enums.AccessLevel;
 import com.shopmart.pops.manager.data.objects.User;
+import lombok.Getter;
 
 import java.lang.reflect.Field;
 
@@ -11,6 +12,7 @@ import java.lang.reflect.Field;
  * Created by 0nepeop1e on 4/26/16.
  */
 public class UserBuilder extends AbstractBuilder<User>{
+    @Getter
     private String password;
     public UserBuilder(){
         this.data = new User();
@@ -25,6 +27,10 @@ public class UserBuilder extends AbstractBuilder<User>{
         return this;
     }
 
+    public String getUsername(){
+        return this.data.getUsername();
+    }
+
     public UserBuilder setPassword(String password){
         this.password = password;
         return this;
@@ -35,14 +41,26 @@ public class UserBuilder extends AbstractBuilder<User>{
         return this;
     }
 
+    public String getStaffId(){
+        return this.data.getStaffId();
+    }
+
     public UserBuilder setStaffName(String staffName){
         this.data.setStaffName(staffName);
         return this;
     }
 
+    public String getStaffName(){
+        return this.data.getStaffName();
+    }
+
     public UserBuilder setAccessLevel(AccessLevel accessLevel){
         this.data.setAccessLevel(accessLevel);
         return this;
+    }
+
+    public AccessLevel getAccessLevel(){
+        return this.data.getAccessLevel();
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.shopmart.pops.components.dialogs;
 
 import com.shopmart.pops.POPS;
 import com.shopmart.pops.components.controls.CredentialForm;
+import com.shopmart.pops.components.scenes.MenuScene;
 import com.shopmart.pops.manager.resource.ResourceManager;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Alert;
@@ -9,6 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
 import lombok.Getter;
+
+import java.util.regex.Pattern;
 
 /**
  * A dialog which prompt for credential.
@@ -18,6 +21,8 @@ public class CredentialDialog extends Alert {
     private CredentialForm credential;
     @Getter
     private boolean validated;
+
+    private boolean stopClose = false;
 
     /**
      * A credential dialog with a pre-set username.
@@ -39,11 +44,49 @@ public class CredentialDialog extends Alert {
         this.setGraphic(icon);
         this.setTitle("Credential Required");
         this.setHeaderText("The system need your credential.");
+        this.setOnCloseRequest(e->{
+            if(stopClose) e.consume();
+            stopClose = false;
+        });
     }
 
     private void onOk() {
-        validated = POPS.getDataManager().getUserManager()
-                .validate(getUsername(), getPassword());
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setTitle("Login");
+        a.initOwner(this.getDialogPane().getScene().getWindow());
+        String username = credential.getUsername();
+        String password = credential.getPassword();
+        if(Pattern.matches("^\\s*$", username)){
+            a.setHeaderText("Invalid Username!");
+            a.setContentText("Please enter a valid username.");
+            a.showAndWait();
+            credential.setUsername("");
+            credential.setPassword("");
+            credential.getUsernameField().requestFocus();
+            stopClose = true;
+            return;
+        }
+        if(Pattern.matches("^\\s*$", password)){
+            a.setHeaderText("Invalid Password!");
+            a.setContentText("Please enter a valid password.");
+            a.showAndWait();
+            credential.setPassword("");
+            credential.getPasswordField().requestFocus();
+            stopClose = true;
+            return;
+        }
+        if(POPS.getDataManager().getUserManager().validate(username, password)) {
+            POPS.getSceneManager().nextScene(new MenuScene());
+            credential.setUsername("");
+            credential.setPassword("");
+            stopClose = true;
+            return;
+        }
+        a.setHeaderText("Failed to Login!");
+        a.setContentText("Incorrect username or password.");
+        a.showAndWait();
+        credential.setPassword("");
+        validated = true;
     }
 
     /**
