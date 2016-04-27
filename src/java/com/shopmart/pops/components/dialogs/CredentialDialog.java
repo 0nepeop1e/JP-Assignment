@@ -65,15 +65,13 @@ public class CredentialDialog extends Alert {
             return;
         }
         if(POPS.getDataManager().getUserManager().validate(username, password)) {
-            POPS.getSceneManager().nextScene(new MenuScene());
-            this.error = Optional.of(a);
+            validated = true;
             return;
         }
         a.setHeaderText("Failed to Login!");
         a.setContentText("Incorrect username or password.");
         a.showAndWait();
         credential.setPassword("");
-        validated = true;
     }
 
     /**

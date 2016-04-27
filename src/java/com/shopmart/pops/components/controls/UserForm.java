@@ -65,8 +65,8 @@ public class UserForm extends GridPane {
                 .collect(Collectors.toList()));
         accessLevelField.setValue(user.getAccessLevel());
         accessLevelField.setEditable(false);
-        accessLevelField.setDisable(!cu.getAccessLevel()
-                .enoughFor(AccessLevel.Manager) || user.getId() == 1);
+        accessLevelField.setDisable(cu == user || (!cu.getAccessLevel()
+                .enoughFor(AccessLevel.Manager) || user.getId() == 1));
         this.add(accessLevelField, 1, 4);
     }
 

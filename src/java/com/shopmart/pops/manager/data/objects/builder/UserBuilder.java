@@ -66,7 +66,6 @@ public class UserBuilder extends AbstractBuilder<User>{
     @Override
     public User addToManager(AbstractManager<User> manager){
         if(super.addToManager(manager) != null){
-            System.out.println(this.password);
             this.data.setPassword(this.password);
             return this.data;
         }

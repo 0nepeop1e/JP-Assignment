@@ -57,12 +57,27 @@ public class UsersScene extends Scene {
     private void delete() {
         if(uf.getSelectedUser() != null){
             Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+            a.initOwner(this.getWindow());
+            if(uf.getSelectedUser() == POPS.getDataManager()
+                    .getUserManager().getCurrentUser()){
+                a.setAlertType(Alert.AlertType.ERROR);
+                a.setTitle("Delete");
+                a.setHeaderText("Failed to Delete!");
+                a.setContentText("You cannot delete your own account.");
+                a.showAndWait();
+                return;
+            }
             a.setTitle("Delete");
             a.setHeaderText("Are you sure to delete this entry?");
             Optional<ButtonType> obt = a.showAndWait();
-            obt.ifPresent(b->{if(b==ButtonType.YES)
-                POPS.getDataManager().getUserManager()
-                .removeById(uf.getSelectedUser().getId());});
+            obt.ifPresent(b->{
+                if(b==ButtonType.OK){
+                    POPS.getDataManager().getUserManager()
+                        .removeById(uf.getSelectedUser().getId());
+                    POPS.getDataManager().saveTo(POPS.dataPath);
+                    uf.refresh();
+                }
+            });
         }
     }
 }
