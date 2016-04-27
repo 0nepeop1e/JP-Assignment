@@ -29,6 +29,8 @@ public class Request extends AbstractEntry {
     private int status = 0;
     @Setter @Serialize
     private int modifier = 0;
+    @Getter @Setter @Serialize
+    private String remarks = "";
 
     public User getCreator(){
         return this.dataManager.getUserManager()

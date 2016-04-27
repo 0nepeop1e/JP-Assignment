@@ -1,6 +1,7 @@
 package com.shopmart.pops.manager.data;
 
 import com.shopmart.pops.manager.data.abstracts.AbstractManager;
+import com.shopmart.pops.manager.data.abstracts.TimeStatusManager;
 import com.shopmart.pops.manager.data.enums.OrderStatus;
 import com.shopmart.pops.manager.data.entries.Order;
 import com.shopmart.pops.manager.data.entries.Request;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 /**
  * Created by 0nepeop1e on 4/26/16.
  */
-public class OrderManager extends AbstractManager<Order> {
+public class OrderManager extends AbstractManager<Order> implements TimeStatusManager<Order, OrderStatus> {
 
     public void addFromRequest(Request request){
         Map<Supplier, List<Map.Entry<Integer, Integer>>> grouped =
@@ -33,18 +34,21 @@ public class OrderManager extends AbstractManager<Order> {
         }
     }
 
+    @Override
     public Collection<Order> getAllAfter(LocalDateTime time){
         return this.data.stream().filter(r->
                 r.getTime().compareTo(time) >= 0)
                 .collect(Collectors.toList());
     }
 
+    @Override
     public Collection<Order> getAllBefore(LocalDateTime time){
         return this.data.stream().filter(r->
                 r.getTime().compareTo(time) < 0)
                 .collect(Collectors.toList());
     }
 
+    @Override
     public Collection<Order> getAllBetween(LocalDateTime lower, LocalDateTime upper){
         return this.data.stream().filter(r->
                 r.getTime().compareTo(lower) >= 0 &&
@@ -52,6 +56,7 @@ public class OrderManager extends AbstractManager<Order> {
                 .collect(Collectors.toList());
     }
 
+    @Override
     public Collection<Order> getAllByStatus(OrderStatus status){
         return this.data.stream().filter(r->
                 r.getStatus() == status)

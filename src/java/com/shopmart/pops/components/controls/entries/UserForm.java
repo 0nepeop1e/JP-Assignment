@@ -1,4 +1,4 @@
-package com.shopmart.pops.components.controls;
+package com.shopmart.pops.components.controls.entries;
 
 import com.shopmart.pops.POPS;
 import com.shopmart.pops.POPSUtils;
