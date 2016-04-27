@@ -2,7 +2,7 @@ package com.shopmart.pops.components.scenes;
 
 import com.shopmart.pops.POPS;
 import com.shopmart.pops.components.controls.UserForm;
-import com.shopmart.pops.manager.data.objects.User;
+import com.shopmart.pops.manager.data.entries.User;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

@@ -1,4 +1,4 @@
-package com.shopmart.pops.manager.data.objects;
+package com.shopmart.pops.manager.data.entries;
 
 import com.google.gson.JsonObject;
 import com.shopmart.pops.manager.data.abstracts.AbstractEntry;

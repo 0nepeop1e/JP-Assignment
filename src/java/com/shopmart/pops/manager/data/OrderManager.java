@@ -2,9 +2,9 @@ package com.shopmart.pops.manager.data;
 
 import com.shopmart.pops.manager.data.abstracts.AbstractManager;
 import com.shopmart.pops.manager.data.enums.OrderStatus;
-import com.shopmart.pops.manager.data.objects.Order;
-import com.shopmart.pops.manager.data.objects.Request;
-import com.shopmart.pops.manager.data.objects.Supplier;
+import com.shopmart.pops.manager.data.entries.Order;
+import com.shopmart.pops.manager.data.entries.Request;
+import com.shopmart.pops.manager.data.entries.Supplier;
 
 import java.time.LocalDateTime;
 import java.util.Collection;

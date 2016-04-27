@@ -1,49 +1,24 @@
 package com.shopmart.pops.components.controls;
 
 import com.shopmart.pops.POPS;
-import com.shopmart.pops.manager.data.objects.User;
-import com.sun.javafx.collections.ObservableListWrapper;
+import com.shopmart.pops.components.abstracts.AbstractFinder;
+import com.shopmart.pops.components.abstracts.SearchFactory;
+import com.shopmart.pops.components.abstracts.SearchFunction;
+import com.shopmart.pops.manager.data.UserManager;
+import com.shopmart.pops.manager.data.entries.User;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
-
-import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by 0nepeop1e on 4/27/16.
  */
-public class UserFinder extends VBox {
-    private TableView<User> dataView;
-    private TextField keyword;
-    private ComboBox<SearchBy> searchBy;
-    private Collection<User> cache;
+public class UserFinder extends AbstractFinder<User, UserFinder.SearchBy> {
     public UserFinder(){
-        this.setSpacing(8);
-        HBox hBox = new HBox();
-        hBox.setSpacing(8);
-        Label lbl = new Label("Search by:");
-        HBox.setHgrow(lbl, Priority.NEVER);
-        searchBy = new ComboBox<>();
-        searchBy.getItems().addAll(SearchBy.values());
-        searchBy.setValue(SearchBy.Username);
-        searchBy.setEditable(false);
-        HBox.setHgrow(searchBy, Priority.NEVER);
-        keyword = new TextField();
-        HBox.setHgrow(keyword, Priority.ALWAYS);
-        Button search = new Button("Search");
-        HBox.setHgrow(search, Priority.NEVER);
-        search.setOnAction(e->refresh());
-        hBox.getChildren().addAll(lbl, searchBy, keyword, search);
-        hBox.setAlignment(Pos.CENTER);
-        VBox.setVgrow(hBox, Priority.NEVER);
-        dataView = new TableView<>();
-        dataView.setEditable(false);
-        dataView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        dataView.getSelectionModel().setCellSelectionEnabled(false);
+        super(SearchBy.values(), SearchBy.Username);
+    }
+
+    @Override
+    protected TableColumn<User, ?>[] getColumns() {
         TableColumn<User, String> c1 = new TableColumn<>("Username");
         TableColumn<User, String> c2 = new TableColumn<>("Staff ID");
         TableColumn<User, String> c3 = new TableColumn<>("Staff Name");
@@ -56,40 +31,15 @@ public class UserFinder extends VBox {
                 cd.getValue().getStaffName()));
         c4.setCellValueFactory(cd->new SimpleStringProperty(
                 cd.getValue().getAccessLevel().toString()));
-        dataView.getColumns().addAll(c1, c2, c3, c4);
-        VBox.setVgrow(dataView, Priority.ALWAYS);
-        this.getChildren().addAll(hBox, dataView);
-        refresh();
+        return new TableColumn[]{c1, c2, c3, c4};
     }
 
-    public void refresh() {
-        switch (searchBy.getValue()){
-            case Username:
-                cache = POPS.getDataManager().getUserManager()
-                        .findByUsername(keyword.getText());
-                break;
-            case StaffId:
-                cache = POPS.getDataManager().getUserManager()
-                        .findByStaffId(keyword.getText());
-                break;
-            case StaffName:
-                cache = POPS.getDataManager().getUserManager()
-                        .findByStaffName(keyword.getText());
-                break;
-            case AccessLevel:
-                cache = POPS.getDataManager().getUserManager()
-                        .findByAccessLevel(keyword.getText());
-                break;
-        }
-        dataView.getItems().removeAll(dataView.getItems());
-        dataView.getItems().addAll(cache.toArray(new User[]{}));
+    @Override
+    protected UserManager getManager() {
+        return POPS.getDataManager().getUserManager();
     }
 
-    public User getSelectedUser(){
-        return dataView.getSelectionModel().getSelectedItem();
-    }
-
-    private enum SearchBy{
+    enum SearchBy implements SearchFactory<User, UserManager>{
         Username, StaffId, StaffName, AccessLevel;
         @Override
         public String toString(){
@@ -97,6 +47,20 @@ public class UserFinder extends VBox {
             if(this == StaffName) return "Staff Name";
             if(this == AccessLevel) return "Access Level";
             return super.toString();
+        }
+        @Override
+        public SearchFunction<User, UserManager> getFunction(){
+            switch (this){
+                case Username:
+                    return UserManager::findByUsername;
+                case StaffId:
+                    return UserManager::findByStaffId;
+                case StaffName:
+                    return UserManager::findByUsername;
+                case AccessLevel:
+                    return UserManager::findByAccessLevel;
+            }
+            return null;
         }
     }
 }

@@ -2,7 +2,7 @@ package com.shopmart.pops.manager.data;
 
 import com.shopmart.pops.POPSUtils;
 import com.shopmart.pops.manager.data.abstracts.AbstractManager;
-import com.shopmart.pops.manager.data.objects.Item;
+import com.shopmart.pops.manager.data.entries.Item;
 
 import java.util.Collection;
 import java.util.regex.Pattern;
@@ -27,6 +27,12 @@ public class ItemManager extends AbstractManager<Item> {
 
     public Collection<Item> findBySupplierId(int supplierId){
         return data.stream().filter(i->true).collect(Collectors.toList());
+    }
+
+    public Collection<Item> findBySupplier(String glob){
+        return data.stream().filter(i->Pattern.matches(
+                POPSUtils.globToRegEx(glob),i.getSupplier()
+                .getName())).collect(Collectors.toList());
     }
 
     @Override

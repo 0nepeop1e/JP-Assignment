@@ -1,9 +1,9 @@
-package com.shopmart.pops.manager.data.objects.builder;
+package com.shopmart.pops.manager.data.entries.builder;
 
 import com.shopmart.pops.manager.data.abstracts.AbstractBuilder;
 import com.shopmart.pops.manager.data.abstracts.AbstractManager;
 import com.shopmart.pops.manager.data.enums.AccessLevel;
-import com.shopmart.pops.manager.data.objects.User;
+import com.shopmart.pops.manager.data.entries.User;
 import lombok.Getter;
 
 import java.lang.reflect.Field;

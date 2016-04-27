@@ -2,8 +2,8 @@ package com.shopmart.pops.components.controls;
 
 import com.shopmart.pops.POPS;
 import com.shopmart.pops.manager.data.enums.AccessLevel;
-import com.shopmart.pops.manager.data.objects.User;
-import com.shopmart.pops.manager.data.objects.builder.UserBuilder;
+import com.shopmart.pops.manager.data.entries.User;
+import com.shopmart.pops.manager.data.entries.builder.UserBuilder;
 import javafx.scene.control.Alert;
 
 /**

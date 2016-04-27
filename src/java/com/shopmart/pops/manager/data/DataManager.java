@@ -4,16 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonWriter;
-import com.shopmart.pops.manager.data.enums.AccessLevel;
-import com.shopmart.pops.manager.data.objects.Request;
-import com.shopmart.pops.manager.data.objects.SuperUser;
-import com.shopmart.pops.manager.data.objects.User;
-import com.shopmart.pops.manager.data.objects.builder.UserBuilder;
+import com.shopmart.pops.manager.data.entries.SuperUser;
 import lombok.Getter;
 
 import java.io.*;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 /**

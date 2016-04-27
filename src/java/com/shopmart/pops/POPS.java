@@ -1,19 +1,14 @@
 package com.shopmart.pops;
 
 import com.shopmart.pops.manager.data.DataManager;
-import com.shopmart.pops.manager.data.objects.Order;
 import com.shopmart.pops.manager.scene.SceneManager;
 import com.shopmart.pops.components.scenes.LoginScene;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import lombok.Getter;
 
-import java.io.File;
 import java.nio.file.Files;
-import java.nio.file.LinkOption;
 import java.nio.file.Paths;
-import java.util.concurrent.TimeUnit;
-import java.util.regex.Pattern;
 
 public class POPS extends Application {
 

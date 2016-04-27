@@ -38,7 +38,7 @@ public class UsersScene extends Scene {
         del.setOnAction(e->delete());
         Button edit = new Button("Edit");
         edit.setOnAction(e->POPS.getSceneManager().nextScene(
-                new UserEditScene(uf.getSelectedUser())));
+                new UserEditScene(uf.getSelectedItem())));
         Button add = new Button("New User");
         add.setOnAction(e->POPS.getSceneManager().nextScene(new CreateUserScene()));
         hBox.getChildren().addAll(back, space);
@@ -55,10 +55,10 @@ public class UsersScene extends Scene {
     }
 
     private void delete() {
-        if(uf.getSelectedUser() != null){
+        if(uf.getSelectedItem() != null){
             Alert a = new Alert(Alert.AlertType.CONFIRMATION);
             a.initOwner(this.getWindow());
-            if(uf.getSelectedUser() == POPS.getDataManager()
+            if(uf.getSelectedItem() == POPS.getDataManager()
                     .getUserManager().getCurrentUser()){
                 a.setAlertType(Alert.AlertType.ERROR);
                 a.setTitle("Delete");
@@ -73,7 +73,7 @@ public class UsersScene extends Scene {
             obt.ifPresent(b->{
                 if(b==ButtonType.OK){
                     POPS.getDataManager().getUserManager()
-                        .removeById(uf.getSelectedUser().getId());
+                        .removeById(uf.getSelectedItem().getId());
                     POPS.getDataManager().saveTo(POPS.dataPath);
                     uf.refresh();
                 }

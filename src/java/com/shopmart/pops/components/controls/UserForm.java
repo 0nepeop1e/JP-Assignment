@@ -5,7 +5,7 @@ import com.shopmart.pops.POPSUtils;
 import com.shopmart.pops.components.dialogs.CredentialDialog;
 import com.shopmart.pops.components.dialogs.PasswordDialog;
 import com.shopmart.pops.manager.data.enums.AccessLevel;
-import com.shopmart.pops.manager.data.objects.User;
+import com.shopmart.pops.manager.data.entries.User;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import lombok.Setter;
