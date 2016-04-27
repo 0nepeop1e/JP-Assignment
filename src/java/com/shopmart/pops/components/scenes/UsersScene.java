@@ -1,10 +1,9 @@
 package com.shopmart.pops.components.scenes;
 
 import com.shopmart.pops.POPS;
-import com.shopmart.pops.components.controls.UserFinder;
+import com.shopmart.pops.components.controls.finders.UserFinder;
 import com.shopmart.pops.manager.data.enums.AccessLevel;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;

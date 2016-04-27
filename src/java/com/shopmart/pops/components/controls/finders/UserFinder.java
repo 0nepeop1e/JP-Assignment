@@ -1,4 +1,4 @@
-package com.shopmart.pops.components.controls;
+package com.shopmart.pops.components.controls.finders;
 
 import com.shopmart.pops.POPS;
 import com.shopmart.pops.components.abstracts.AbstractFinder;
