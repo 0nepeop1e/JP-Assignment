@@ -1,6 +1,5 @@
 package com.shopmart.pops.manager.data;
 
-import com.google.gson.JsonObject;
 import com.shopmart.pops.manager.data.abstracts.AbstractManager;
 import com.shopmart.pops.manager.data.objects.Supplier;
 

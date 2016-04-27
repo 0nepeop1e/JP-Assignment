@@ -2,13 +2,16 @@ package com.shopmart.pops.components.controls;
 
 import com.shopmart.pops.POPS;
 import com.shopmart.pops.manager.data.objects.User;
+import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by 0nepeop1e on 4/27/16.
@@ -35,6 +38,7 @@ public class UserFinder extends VBox {
         HBox.setHgrow(search, Priority.NEVER);
         search.setOnAction(e->refresh());
         hBox.getChildren().addAll(lbl, searchBy, keyword, search);
+        hBox.setAlignment(Pos.CENTER);
         VBox.setVgrow(hBox, Priority.NEVER);
         dataView = new TableView<>();
         dataView.setEditable(false);
@@ -58,7 +62,7 @@ public class UserFinder extends VBox {
         refresh();
     }
 
-    private void refresh() {
+    public void refresh() {
         switch (searchBy.getValue()){
             case Username:
                 cache = POPS.getDataManager().getUserManager()
@@ -70,15 +74,15 @@ public class UserFinder extends VBox {
                 break;
             case StaffName:
                 cache = POPS.getDataManager().getUserManager()
-                        .findByStaffId(keyword.getText());
+                        .findByStaffName(keyword.getText());
                 break;
             case AccessLevel:
                 cache = POPS.getDataManager().getUserManager()
                         .findByAccessLevel(keyword.getText());
                 break;
         }
-        dataView.getItems().clear();
-        dataView.getItems().addAll(cache);
+        dataView.getItems().removeAll(dataView.getItems());
+        dataView.getItems().addAll(cache.toArray(new User[]{}));
     }
 
     public User getSelectedUser(){
@@ -91,7 +95,7 @@ public class UserFinder extends VBox {
         public String toString(){
             if(this == StaffId) return "Staff ID";
             if(this == StaffName) return "Staff Name";
-            if(this == AccessLevel) return "AccessLevel";
+            if(this == AccessLevel) return "Access Level";
             return super.toString();
         }
     }

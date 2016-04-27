@@ -63,6 +63,10 @@ public class User extends AbstractEntry {
         return result;
     }
 
+    protected void setId(int id){
+        this.id = id;
+    }
+
     @Override
     public User loadJson(JsonObject json){
         if(json.get("id").getAsInt() == 1)

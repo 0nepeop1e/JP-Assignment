@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
 public class POPS extends Application {
 
@@ -23,9 +24,9 @@ public class POPS extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        //if (Files.exists(Paths.get(dataPath)))
-        //    dataManager = DataManager.loadFrom(dataPath);
-        //else
+        if (Files.exists(Paths.get(dataPath)))
+            dataManager = DataManager.loadFrom(dataPath);
+        else
             dataManager = new DataManager();
         stage.setMaximized(true);
         stage.setResizable(false);

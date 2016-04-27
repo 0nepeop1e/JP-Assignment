@@ -4,6 +4,7 @@ import com.shopmart.pops.POPS;
 import com.shopmart.pops.manager.data.enums.AccessLevel;
 import com.shopmart.pops.manager.data.objects.User;
 import com.shopmart.pops.manager.data.objects.builder.UserBuilder;
+import javafx.scene.control.Alert;
 
 /**
  * Created by 0nepeop1e on 4/27/16.
@@ -11,9 +12,9 @@ import com.shopmart.pops.manager.data.objects.builder.UserBuilder;
 public class CreateUser extends UserForm {
     private UserBuilder builder;
 
-    public CreateUser(UserBuilder builder) {
+    public CreateUser() {
         super(new User());
-        this.builder = builder;
+        this.builder = new UserBuilder();
         usernameField.setText("");
         passwordButton.setText("Set Password");
         staffIdField.setText("");
@@ -29,7 +30,15 @@ public class CreateUser extends UserForm {
     @Override
     public boolean apply(){
         if(!this.validate()) return false;
-        if(!password.isPresent()) return false;
+        if(!password.isPresent()){
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.initOwner(this.getScene().getWindow());
+            a.setTitle("User");
+            a.setHeaderText("Invalid Password!");
+            a.setContentText("Please set a password.");
+            a.showAndWait();
+            return false;
+        }
         builder.setUsername(this.getUsername());
         builder.setPassword(this.password.get());
         builder.setStaffId(this.getStaffId());

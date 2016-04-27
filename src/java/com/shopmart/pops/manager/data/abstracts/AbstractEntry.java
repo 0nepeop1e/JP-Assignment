@@ -1,7 +1,5 @@
 package com.shopmart.pops.manager.data.abstracts;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.shopmart.pops.manager.data.DataManager;
 import com.shopmart.pops.manager.data.annotations.Serialize;
@@ -29,30 +27,31 @@ public abstract class AbstractEntry {
         for(Field f:fs){
             f.setAccessible(true);
             try{
-                if(String.class.isAssignableFrom(f.getType()))
+                if(f.get(this) instanceof String)
                     json.addProperty(f.getName(), (String)f.get(this));
-                else if (Number.class.isAssignableFrom(f.getType()))
+                else if (f.get(this) instanceof Number)
                     json.addProperty(f.getName(), (Number)f.get(this));
-                else if (Boolean.class.isAssignableFrom(f.getType()))
+                else if (f.get(this) instanceof Boolean)
                     json.addProperty(f.getName(), f.getBoolean(this));
             }catch (Exception e){e.printStackTrace();}
         }
         return json;
     }
     public <T extends AbstractEntry> T loadJson(JsonObject json){
+        this.id = json.get("id").getAsInt();
         List<Field> fs = Arrays.stream(this.getClass().getDeclaredFields())
                 .filter(f->f.getAnnotation(Serialize.class)!=null)
                 .collect(Collectors.toList());
         for(Field f:fs){
             f.setAccessible(true);
             try{
-                if(String.class.isAssignableFrom(f.getType()))
+                if(f.get(this) instanceof String)
                     f.set(this, json.get(f.getName()).getAsString());
-                else if (Integer.class.isAssignableFrom(f.getType()))
+                else if (f.get(this) instanceof Integer)
                     f.set(this, json.get(f.getName()).getAsInt());
-                else if (Double.class.isAssignableFrom(f.getType()))
+                else if (f.get(this) instanceof Double)
                     f.set(this, json.get(f.getName()).getAsDouble());
-                else if (Boolean.class.isAssignableFrom(f.getType()))
+                else if (f.get(this) instanceof Boolean)
                     f.set(this, json.get(f.getName()).getAsBoolean());
             }catch (Exception e){e.printStackTrace();}
         }

@@ -60,7 +60,13 @@ public class MenuScene extends Scene {
 
     private void onItemClicked(MenuItem item){
         switch(item){
-
+            case Users:
+                POPS.getSceneManager().nextScene(new UsersScene());
+                break;
+            case Logout:
+                POPS.getDataManager().getUserManager().logout();
+                POPS.getSceneManager().prevScene();
+                break;
         }
     }
 

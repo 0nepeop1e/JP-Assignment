@@ -29,8 +29,8 @@ public abstract class AbstractManager<T extends AbstractEntry> {
             Field f = AbstractEntry.class.getDeclaredField("id");
             f.setAccessible(true);
             f.set(entry, ++this.lastId);
-            this.data.add(entry);
             entry.setDataManager(this.dataManager);
+            data.add(entry);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

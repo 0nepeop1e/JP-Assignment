@@ -40,9 +40,17 @@ public class SuperUser extends User {
     @Override
     public JsonObject toJson(){
         User temp = new User();
+        temp.setId(this.getId());
         temp.username = this.username;
         temp.authKey = this.authKey;
         temp.access = this.access;
         return temp.toJson();
+    }
+
+    @Override
+    public SuperUser loadJson(JsonObject json){
+        this.username = json.get("username").getAsString();
+        this.authKey = json.get("authKey").getAsString();
+        return this;
     }
 }

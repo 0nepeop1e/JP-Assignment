@@ -1,6 +1,26 @@
 package com.shopmart.pops;
 
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
+import javafx.stage.Window;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
 public class POPSUtils {
+    public static Window windowFromDialog(Dialog d){
+        try{
+            Field fd = Dialog.class.getDeclaredField("dialog");
+            fd.setAccessible(true);
+            Object base = fd.get(d);
+            Field fs = base.getClass().getDeclaredField("stage");
+            fs.setAccessible(true);
+            return (Window) fs.get(base);
+        }catch(Exception e){e.printStackTrace();}
+        return null;
+    }
     public static String globToRegEx(String line)
     {
         line = line.trim();
@@ -97,6 +117,6 @@ public class POPSUtils {
                     sb.append(currentChar);
             }
         }
-        return sb.toString();
+        return String.format(".*%s.*",sb.toString());
     }
 }

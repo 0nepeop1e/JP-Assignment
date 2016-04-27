@@ -48,10 +48,9 @@ public class DataManager {
 
     public void saveTo(String path){
         try {
-            FileWriter fw = new FileWriter(path);
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            gson.toJson(this.toJson(), fw);
-            //fw.write(gson.toJson(this.toJson()));
+            FileWriter fw = new FileWriter(path, false);
+            Gson gson = new GsonBuilder().create();
+            fw.write(gson.toJson(this.toJson()));
             fw.flush();
             fw.close();
         } catch (IOException e) {
