@@ -67,6 +67,9 @@ public class MenuScene extends Scene {
                 POPS.getSceneManager().nextScene(new UserEditScene(
                         POPS.getDataManager().getUserManager().getCurrentUser()));
                 break;
+            case Suppliers:
+                POPS.getSceneManager().nextScene(new SuppliersScene());
+                break;
             case Logout:
                 POPS.getDataManager().getUserManager().logout();
                 POPS.getSceneManager().prevScene();

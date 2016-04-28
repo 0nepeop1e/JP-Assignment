@@ -48,7 +48,7 @@ public class PasswordDialog extends Alert {
         Alert a = new Alert(AlertType.ERROR);
         a.initOwner(POPSUtils.windowFromDialog(this));
         a.setTitle("Password");
-        if(!Pattern.matches("^(\\w|[-!$%^&*\\(\\)+|~=`\\{\\}\\[\\]:\";'<>?,./\\\\]){6,}$",
+        if(!Pattern.matches("^(\\w|[-!$%^&*\\(\\)+|~=`\\{\\}\\[\\]:\";'<>?,\\./\\\\]){6,}$",
                 pwd1.getText())){
             a.setHeaderText("Invalid Password!");
             a.setContentText("Password must at least 6 characters only accepts" +

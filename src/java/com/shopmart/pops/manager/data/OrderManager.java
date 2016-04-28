@@ -29,7 +29,7 @@ public class OrderManager extends AbstractManager<Order> implements TimeStatusMa
                 order.getItemsAmount().put(sen.getKey(), sen.getValue());
             order.setSupplier(en.getKey().getId());
             order.setCreator(request.getModifier().getId());
-            order.setStatus(OrderStatus.Pending);
+            order.setStatus(OrderStatus.Processing);
             this.add(order);
         }
     }

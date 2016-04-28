@@ -12,6 +12,8 @@ public class Supplier extends AbstractEntry {
     @Getter @Setter @Serialize
     private String name = "";
     @Getter @Setter @Serialize
+    private String address = "";
+    @Getter @Setter @Serialize
     private String email = "";
     @Getter @Setter @Serialize
     private String phone = "";

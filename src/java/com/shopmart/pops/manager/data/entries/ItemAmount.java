@@ -1,7 +1,9 @@
-package com.shopmart.pops.components.controls.entries;
+package com.shopmart.pops.manager.data.entries;
 
-import com.shopmart.pops.manager.data.entries.Item;
-import javafx.beans.property.*;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ReadOnlyStringProperty;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.property.SimpleIntegerProperty;
 import lombok.Getter;
 
 /**

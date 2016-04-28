@@ -24,6 +24,7 @@ public class UsersScene extends Scene {
         VBox root = (VBox) this.getRoot();
         root.setSpacing(8);
         root.setPadding(new Insets(8, 8, 8, 8));
+        root.setStyle("-fx-font-size:12pt;");
         uf = new UserFinder();
         VBox.setVgrow(uf, Priority.ALWAYS);
         root.getChildren().add(uf);

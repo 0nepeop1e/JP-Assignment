@@ -21,6 +21,7 @@ public class UserEditScene extends Scene {
     public UserEditScene(User u){
         super(new HBox());
         HBox root = (HBox) this.getRoot();
+        root.setStyle("-fx-font-size:12pt;");
         root.setAlignment(Pos.CENTER);
         VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);

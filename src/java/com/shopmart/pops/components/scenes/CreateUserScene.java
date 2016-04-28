@@ -21,6 +21,7 @@ public class CreateUserScene extends Scene {
         super(new HBox());
         HBox root = (HBox) this.getRoot();
         root.setAlignment(Pos.CENTER);
+        root.setStyle("-fx-font-size:12pt;");
         VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);
         vBox.setSpacing(16);
