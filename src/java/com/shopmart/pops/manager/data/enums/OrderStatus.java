@@ -8,10 +8,8 @@ import java.util.Optional;
  */
 public enum OrderStatus {
     Invalid,
-    Pending,
-    Sent,
-    Done,
-    Canceled;
+    Processing,
+    Completed;
     public static OrderStatus fromValue(int val){
         Optional<OrderStatus> os = Arrays.stream(OrderStatus.values())
                 .filter(s->s.ordinal() == val).findFirst();

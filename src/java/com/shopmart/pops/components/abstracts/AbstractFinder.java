@@ -43,6 +43,12 @@ public abstract class AbstractFinder<T extends AbstractEntry, E extends SearchFa
         dataView.getColumns().addAll(getColumns());
         VBox.setVgrow(dataView, Priority.ALWAYS);
         this.getChildren().addAll(hBox, dataView);
+        this.disabledProperty().addListener((v, o, n)->{
+            dataView.setDisable(n);
+            searchBy.setDisable(n);
+            keyword.setDisable(n);
+            search.setDisable(n);
+        });
         refresh();
     }
 

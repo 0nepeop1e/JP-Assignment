@@ -11,7 +11,7 @@ public enum RequestStatus {
     Created,
     Pending,
     Approved,
-    Canceled;
+    Rejected;
     public static RequestStatus fromValue(int val){
         Optional<RequestStatus> os = Arrays.stream(RequestStatus.values())
                 .filter(s->s.ordinal() == val).findFirst();
