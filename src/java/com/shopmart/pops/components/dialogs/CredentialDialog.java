@@ -2,7 +2,6 @@ package com.shopmart.pops.components.dialogs;
 
 import com.shopmart.pops.POPS;
 import com.shopmart.pops.components.controls.CredentialForm;
-import com.shopmart.pops.components.scenes.MenuScene;
 import com.shopmart.pops.manager.resource.ResourceManager;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Alert;

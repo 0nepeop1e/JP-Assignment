@@ -34,6 +34,7 @@ public class DataManager {
         this.userManager.setDataManager(this);
         this.itemManager.setDataManager(this);
         this.supplierManager.setDataManager(this);
+        this.requestManager.setDataManager(this);
         this.orderManager.setDataManager(this);
         SuperUser su = new SuperUser();
         su.setPassword("admin");

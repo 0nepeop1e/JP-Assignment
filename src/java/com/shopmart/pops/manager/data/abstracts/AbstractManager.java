@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.shopmart.pops.manager.data.DataManager;
+import lombok.Getter;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.Optional;
 public abstract class AbstractManager<T extends AbstractEntry> {
     protected List<T> data;
     protected int lastId;
+    @Getter
     protected DataManager dataManager;
 
     public AbstractManager(){

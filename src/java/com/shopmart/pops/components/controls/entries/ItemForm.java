@@ -41,6 +41,8 @@ public class ItemForm extends GridPane {
         button.setOnAction(e->{
             FinderDialog<Supplier, SupplierFinder> fd =
                     new FinderDialog<>(new SupplierFinder());
+            fd.initOwner(this.getScene().getWindow());
+            fd.setHeaderText("Please select a supplier.");
             fd.showAndWait();
             Optional<Supplier> os = fd.getSelectedItem();
             if(os.isPresent())

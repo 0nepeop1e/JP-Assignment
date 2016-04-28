@@ -1,11 +1,13 @@
 package com.shopmart.pops.manager.data;
 
+import com.shopmart.pops.POPS;
 import com.shopmart.pops.manager.data.abstracts.AbstractManager;
 import com.shopmart.pops.manager.data.abstracts.TimeStatusManager;
 import com.shopmart.pops.manager.data.enums.OrderStatus;
 import com.shopmart.pops.manager.data.entries.Order;
 import com.shopmart.pops.manager.data.entries.Request;
 import com.shopmart.pops.manager.data.entries.Supplier;
+import com.shopmart.pops.manager.data.enums.RequestStatus;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -21,8 +23,10 @@ public class OrderManager extends AbstractManager<Order> implements TimeStatusMa
     public void addFromRequest(Request request){
         Map<Supplier, List<Map.Entry<Integer, Integer>>> grouped =
                 request.getItemsAmount().entrySet().stream().collect(
-                Collectors.groupingBy(e->dataManager.getItemManager()
+                Collectors.groupingBy(e->POPS.getDataManager().getItemManager()
                 .getById(e.getKey()).getSupplier()));
+        request.setStatus(RequestStatus.Approved);
+        request.setModifier(POPS.getDataManager().getUserManager().getCurrentUser().getId());
         for(Map.Entry<Supplier, List<Map.Entry<Integer, Integer>>> en : grouped.entrySet()){
             Order order = new Order();
             for(Map.Entry<Integer, Integer> sen : en.getValue())

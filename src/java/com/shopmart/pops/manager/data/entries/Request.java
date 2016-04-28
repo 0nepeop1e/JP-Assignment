@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
+import com.shopmart.pops.POPS;
 import com.shopmart.pops.manager.data.abstracts.AbstractEntry;
 import com.shopmart.pops.manager.data.annotations.Serialize;
 import com.shopmart.pops.manager.data.enums.RequestStatus;
@@ -18,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Request extends AbstractEntry {
-    private static final DateTimeFormatter format = DateTimeFormatter.ofPattern("YYYYMMddHHmmssSSS");
+    private static final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
     @Getter @Setter
     private LocalDateTime time = LocalDateTime.now();
     @Getter
@@ -33,11 +34,15 @@ public class Request extends AbstractEntry {
     private String remarks = "";
 
     public User getCreator(){
+        if(this.dataManager == null)
+            return POPS.getDataManager().getUserManager().getById(creator);
         return this.dataManager.getUserManager()
                 .getById(creator);
     }
 
     public User getModifier(){
+        if(this.dataManager == null)
+            return POPS.getDataManager().getUserManager().getById(modifier);
         return this.dataManager.getUserManager()
                 .getById(modifier);
     }
@@ -63,7 +68,7 @@ public class Request extends AbstractEntry {
     @Override
     public Request loadJson(JsonObject json){
         super.loadJson(json);
-        this.time = LocalDateTime.parse(json.get("data").getAsString(), format);
+        this.time = LocalDateTime.parse(json.get("time").getAsString(), format);
         Gson gson = new GsonBuilder().create();
         Type token = new TypeToken<Map<Integer, Integer>>(){}.getType();
         this.itemsAmount = gson.fromJson(json.get("items") ,token);

@@ -2,10 +2,7 @@ package com.shopmart.pops.components.scenes;
 
 import com.shopmart.pops.POPS;
 import com.shopmart.pops.components.controls.entries.ItemForm;
-import com.shopmart.pops.components.controls.entries.SupplierForm;
-import com.shopmart.pops.components.controls.finders.ItemFinder;
 import com.shopmart.pops.manager.data.entries.Item;
-import com.shopmart.pops.manager.data.entries.Supplier;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -39,7 +36,7 @@ public class ItemScene extends Scene {
                     POPS.getDataManager().getItemManager()
                             .add(sf.getItem());
                 POPS.getDataManager().saveTo(POPS.dataPath);
-                ((SuppliersScene)POPS.getSceneManager().getPreviousScene()).refresh();
+                ((ItemsScene)POPS.getSceneManager().getPreviousScene()).refresh();
                 POPS.getSceneManager().prevScene();
             }
         });

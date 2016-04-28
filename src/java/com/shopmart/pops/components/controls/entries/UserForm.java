@@ -4,8 +4,8 @@ import com.shopmart.pops.POPS;
 import com.shopmart.pops.POPSUtils;
 import com.shopmart.pops.components.dialogs.CredentialDialog;
 import com.shopmart.pops.components.dialogs.PasswordDialog;
-import com.shopmart.pops.manager.data.enums.AccessLevel;
 import com.shopmart.pops.manager.data.entries.User;
+import com.shopmart.pops.manager.data.enums.AccessLevel;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import lombok.Setter;
@@ -99,10 +99,7 @@ public class UserForm extends GridPane {
     public boolean apply(){
         if(!this.validate()) return false;
         CredentialDialog cd = new CredentialDialog(this.user.getUsername());
-        if(this.dialog != null)
-            cd.initOwner(POPSUtils.windowFromDialog(dialog));
-        else
-            cd.initOwner(this.getScene().getWindow());
+        cd.initOwner(this.getScene().getWindow());
         cd.setHeaderText("System needs the password to continue.");
         cd.setUsernameLocked(true);
         if(this.password.isPresent()){

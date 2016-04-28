@@ -1,5 +1,6 @@
 package com.shopmart.pops.manager.data.entries;
 
+import com.shopmart.pops.POPS;
 import com.shopmart.pops.manager.data.abstracts.AbstractEntry;
 import com.shopmart.pops.manager.data.annotations.Serialize;
 import lombok.Getter;
@@ -26,6 +27,8 @@ public class Item extends AbstractEntry {
     private int supplier = 0;
 
     public Supplier getSupplier(){
+        if(this.dataManager == null)
+            return POPS.getDataManager().getSupplierManager().getById(supplier);
         return this.dataManager
                 .getSupplierManager()
                 .getById(supplier);

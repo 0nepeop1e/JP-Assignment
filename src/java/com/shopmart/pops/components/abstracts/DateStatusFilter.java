@@ -63,6 +63,7 @@ public abstract class DateStatusFilter<T extends AbstractEntry, S extends Enum,
         dataView.getColumns().addAll(getColumns());
         VBox.setVgrow(dataView, Priority.ALWAYS);
         this.getChildren().addAll(hBox, dataView);
+        refresh();
     }
 
     public void refresh(){
@@ -130,7 +131,7 @@ public abstract class DateStatusFilter<T extends AbstractEntry, S extends Enum,
 
     private static class DateFormat extends StringConverter<LocalDate> {
 
-        private static final DateTimeFormatter format = DateTimeFormatter.ofPattern("d LLL yyyy");
+        private static final DateTimeFormatter format = DateTimeFormatter.ofPattern("d MMM yyyy");
 
         @Override
         public String toString(LocalDate object) {

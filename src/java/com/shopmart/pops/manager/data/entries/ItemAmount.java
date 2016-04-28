@@ -1,10 +1,15 @@
 package com.shopmart.pops.manager.data.entries;
 
+import com.shopmart.pops.POPS;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
 import lombok.Getter;
+
+import java.util.Collection;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by 0nepeop1e on 4/28/16.
@@ -62,5 +67,16 @@ public class ItemAmount {
 
     public IntegerProperty amountProperty(){
         return amount;
+    }
+
+    public static void toMap(Collection<ItemAmount> amounts, Map<Integer, Integer> map){
+        map.clear();
+        amounts.forEach(a->map.put(a.getItem().getId(), a.getAmount()));
+    }
+
+    public static Collection<ItemAmount> fromMap(Map<Integer, Integer> map){
+        return map.entrySet().stream().map(e->new ItemAmount(
+                POPS.getDataManager().getItemManager().getById(
+                e.getKey()), e.getValue())).collect(Collectors.toList());
     }
 }

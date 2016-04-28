@@ -4,17 +4,18 @@ import com.shopmart.pops.POPS;
 import com.shopmart.pops.components.controls.IconLabel;
 import com.shopmart.pops.manager.data.enums.AccessLevel;
 import com.shopmart.pops.manager.resource.ResourceManager;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -69,6 +70,15 @@ public class MenuScene extends Scene {
                 break;
             case Suppliers:
                 POPS.getSceneManager().nextScene(new SuppliersScene());
+                break;
+            case Items:
+                POPS.getSceneManager().nextScene(new ItemsScene());
+                break;
+            case Requests:
+                POPS.getSceneManager().nextScene(new RequestsScene());
+                break;
+            case Orders:
+                POPS.getSceneManager().nextScene(new OrdersScene());
                 break;
             case Logout:
                 POPS.getDataManager().getUserManager().logout();

@@ -2,9 +2,7 @@ package com.shopmart.pops.components.scenes;
 
 import com.shopmart.pops.POPS;
 import com.shopmart.pops.components.controls.finders.ItemFinder;
-import com.shopmart.pops.components.controls.finders.SupplierFinder;
 import com.shopmart.pops.manager.data.entries.Item;
-import com.shopmart.pops.manager.data.entries.Supplier;
 import com.shopmart.pops.manager.data.enums.AccessLevel;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;

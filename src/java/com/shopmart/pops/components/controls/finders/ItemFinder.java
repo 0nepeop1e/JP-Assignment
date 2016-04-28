@@ -7,7 +7,7 @@ import com.shopmart.pops.components.abstracts.SearchFunction;
 import com.shopmart.pops.manager.data.ItemManager;
 import com.shopmart.pops.manager.data.entries.Item;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.scene.control.*;
+import javafx.scene.control.TableColumn;
 
 /**
  * Created by 0nepeop1e on 4/27/16.

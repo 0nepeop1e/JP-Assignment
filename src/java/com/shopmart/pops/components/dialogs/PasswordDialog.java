@@ -1,8 +1,6 @@
 package com.shopmart.pops.components.dialogs;
 
 import com.shopmart.pops.POPSUtils;
-import javafx.beans.NamedArg;
-import javafx.event.Event;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import lombok.Getter;
@@ -46,7 +44,6 @@ public class PasswordDialog extends Alert {
 
     private void onOK() {
         Alert a = new Alert(AlertType.ERROR);
-        a.initOwner(POPSUtils.windowFromDialog(this));
         a.setTitle("Password");
         if(!Pattern.matches("^(\\w|[-!$%^&*\\(\\)+|~=`\\{\\}\\[\\]:\";'<>?,\\./\\\\]){6,}$",
                 pwd1.getText())){

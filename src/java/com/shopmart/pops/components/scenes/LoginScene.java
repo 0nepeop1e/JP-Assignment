@@ -2,14 +2,12 @@ package com.shopmart.pops.components.scenes;
 
 import com.shopmart.pops.POPS;
 import com.shopmart.pops.components.controls.CredentialForm;
-import com.shopmart.pops.components.dialogs.CredentialDialog;
-import com.shopmart.pops.manager.scene.SceneManager;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 import java.util.regex.Pattern;
